@@ -27,7 +27,7 @@ export class Card extends Component<ICard> {
   protected _id: string;
   protected _title: string;
 
-  constructor(protected container: HTMLElement) {
+  constructor(protected container: HTMLElement, protected cdn: string) {
     super(container);
 
     this.categoryElement = ensureElement('.card__category', this.container);
@@ -55,14 +55,14 @@ export class Card extends Component<ICard> {
   };
 
   set image(value: string) {
-    this.setImage(this.imageElement, value, `${this._title}`);
+    this.setImage(this.imageElement, this.cdn + value, `${this._title}`);
   };
 
   set price(value: number | null) {
     if (value === null) {
       this.setText(this.priceElement, 'Бесценно');
+    } else {
+      this.setText(this.priceElement, `${value} синапсов`);
     };
-    
-    this.setText(this.priceElement, `${value} синапсов`);
   };
 };

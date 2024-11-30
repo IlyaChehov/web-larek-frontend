@@ -2,12 +2,13 @@ import { IOrder, IProduct } from "../../types";
 
 export interface IWebLarekModel {
   products: IProduct[];
-  addToBasket(item: IProduct): void;
+  getItem(id: string): IProduct;
+  addToBasket(id: string): void;
   deleteFromBasket(id: string): void;
   addToItemOrder(): void;
   getTotalPrice(): number;
   getSizeBasket(): number;
-  setTotalPrice(price: number): void;
+  setTotalPrice(): void;
 };
 
 export class WebLarekModel implements IWebLarekModel {
@@ -35,7 +36,12 @@ export class WebLarekModel implements IWebLarekModel {
     return this._basket;
   };
 
-  addToBasket(item: IProduct): void {
+  getItem(id: string): IProduct {
+    return this._products.find(item => item.id === id);
+  };
+
+  addToBasket(id: string): void {
+    const item = this.getItem(id);
     this._basket.push(item);
   };
 
@@ -53,8 +59,9 @@ export class WebLarekModel implements IWebLarekModel {
     return priceList.reduce((sum, price) => sum + price, 0);
   };
 
-  setTotalPrice(price: number) {
-    this._order.total = price;
+  setTotalPrice() {
+    this._order.total = this.getTotalPrice();
+    return this._order.total;
   };
 
   getSizeBasket(): number {
