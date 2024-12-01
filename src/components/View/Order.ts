@@ -1,5 +1,5 @@
 import { IOrderData } from "../../types";
-import { Form } from "../base/Form";
+import { Form } from "./Form";
 
 interface IOrder {
 
