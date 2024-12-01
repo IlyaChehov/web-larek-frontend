@@ -4,7 +4,6 @@ import { Component } from "../base/Component";
 export interface IBasket {
   items: HTMLElement[];
   price: number;
-  selected: string[];
 };
 
 export class Basket extends Component<IBasket> implements IBasket {
@@ -24,7 +23,9 @@ export class Basket extends Component<IBasket> implements IBasket {
   set items(items: HTMLElement[]) {
     if (items.length) {
       this.containerElement.replaceChildren(...items);
+      this.setDisabled(this.buttonElement, false);
     } else {
+      this.setDisabled(this.buttonElement, true);
       this.containerElement.replaceChildren(createElement<HTMLParagraphElement>('p', {
          textContent: 'Корзина пуста'
       }));
@@ -33,13 +34,5 @@ export class Basket extends Component<IBasket> implements IBasket {
 
   set price(value: number) {
     this.setText(this.priceElement, value);
-  };
-  
-  set selected(items: string[]) {
-    if (items.length) {
-      this.setDisabled(this.buttonElement, false);
-    } else {
-      this.setDisabled(this.buttonElement, true);
-    };
   };
 };

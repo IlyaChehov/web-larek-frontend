@@ -6,9 +6,12 @@ export interface IWebLarekModel {
   addToBasket(id: string): void;
   deleteFromBasket(id: string): void;
   addToItemOrder(): void;
-  getTotalPrice(): number;
   getSizeBasket(): number;
-  setTotalPrice(): void;
+  setTotalPrice(): number;
+  setTotalPriceOder(): void;
+  getTotalPriceOder(): number
+  clearBasket(): void;
+  clearOrder(): void;
 };
 
 export class WebLarekModel implements IWebLarekModel {
@@ -54,17 +57,35 @@ export class WebLarekModel implements IWebLarekModel {
     this._order.items = productsIdList;
   };
 
-  getTotalPrice(): number {
+  setTotalPrice(): number {
     const priceList = this._basket.map(item => item.price);
     return priceList.reduce((sum, price) => sum + price, 0);
   };
 
-  setTotalPrice() {
-    this._order.total = this.getTotalPrice();
+  setTotalPriceOder(): void {
+    this._order.total = this.setTotalPrice();
+  };
+
+  getTotalPriceOder(): number {
     return this._order.total;
   };
 
   getSizeBasket(): number {
     return this._basket.length;
+  };
+
+  clearBasket(): void {
+    this._basket = [];
+  };
+
+  clearOrder(): void {
+    this._order = {
+      payment: '',
+      email: '',
+      phone: '',
+      address: '',
+      total: 0,
+      items: [],
+    };
   };
 };
