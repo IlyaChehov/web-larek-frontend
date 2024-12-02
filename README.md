@@ -190,4 +190,6 @@ interface IOrder extends IOrderContacts, IOrderData {
 
 ## Слой модели данных (Model)
 
+### Класс **WebLarekApi**
+
 ### Класс **WebLarekModel**

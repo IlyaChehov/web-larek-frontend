@@ -1,10 +1,20 @@
 import { IOrderContacts } from "../../types";
-import { Form } from "./Form";
+import { IEvents } from "../base/events";
+import { Form } from "../base/Form";
 
-interface IContacts {
+export class Contacts extends Form<IOrderContacts> implements IOrderContacts {
 
-};
+  constructor(protected container: HTMLFormElement, protected event: IEvents) {
+    super(container, event);
+  };
 
-export class Contacts extends Form<IOrderContacts> implements IContacts {
+  set email(value: string) {
+    const inputEmailElement = this.container.elements.namedItem('email') as HTMLInputElement;
+    inputEmailElement.value = value;
+  };
 
+  set phone(value: string) {
+    const inputPhoneElement = this.container.elements.namedItem('phone') as HTMLInputElement;
+    inputPhoneElement.value = value;
+  };
 };

@@ -31,3 +31,7 @@ export interface IOrder extends IOrderContacts, IOrderData {
   total: number;
   items: string[];
 };
+
+export interface IActions {
+  onClick: () => void;
+};

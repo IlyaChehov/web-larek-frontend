@@ -1,4 +1,4 @@
-import { IProduct } from "../../types";
+import { IActions, IProduct } from "../../types";
 import { ensureElement } from "../../utils/utils";
 import { Component } from "../base/Component";
 
@@ -26,24 +26,31 @@ export class Card extends Component<ICard> {
   protected titleElement: HTMLElement;
   protected imageElement: HTMLImageElement;
   protected priceElement: HTMLElement;
-  protected _id: string;
+  protected descriptionElement: HTMLElement;
+  protected buttonElement?: HTMLButtonElement;
+  protected indexElement?: HTMLElement;
+  
   protected _title: string;
 
-  constructor(protected container: HTMLElement, protected cdn: string) {
+  constructor(protected container: HTMLElement, protected cdn: string, protected actions?: IActions) {
     super(container);
 
     this.categoryElement = ensureElement('.card__category', this.container);
-    this.titleElement = ensureElement('.card__title', this.container);
-    this.imageElement = ensureElement<HTMLImageElement>('.card__image', this.container);
+    this.titleElement = this.container.querySelector('.card__title');
+    this.imageElement = this.container.querySelector('.card__image');
     this.priceElement = ensureElement('.card__price', this.container);
-  };
+    this.descriptionElement = this.container.querySelector('.card__text');
+    this.buttonElement = this.container.querySelector('.card__button');
+    this.indexElement = this.container.querySelector('.basket__item-index');
+    
+    if (actions?.onClick) {
+      if (this.buttonElement) {
+        this.buttonElement.addEventListener('click', () => actions.onClick)
+      } else {
+        this.container.addEventListener('click', () => actions.onClick)
+      }
+    }
 
-  set id(value: string) {
-    this._id = value;
-  };
-
-  get id() {
-    return this._id;
   };
 
   set category(value: TCategory) {
@@ -57,7 +64,7 @@ export class Card extends Component<ICard> {
   };
 
   set image(value: string) {
-    this.setImage(this.imageElement, this.cdn + value, `${this._title}`);
+    this.setImage(this.imageElement, this.cdn + value, this._title);
   };
 
   set price(value: number | null) {
@@ -66,5 +73,14 @@ export class Card extends Component<ICard> {
     } else {
       this.setText(this.priceElement, `${value} синапсов`);
     };
+  };
+
+  set description(value: string) {
+    this.setText(this.descriptionElement, value);
+  };
+
+  set index(value: number) {
+    if (!this.indexElement) return;
+    this.setText(this.indexElement, value + 1);
   };
 };

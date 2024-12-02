@@ -12,7 +12,7 @@ export class Page extends Component<IPage> implements IPage {
   protected basketElement: HTMLButtonElement;
   protected basketCounter: HTMLElement;
   protected galleryElement: HTMLElement;
-
+  protected wrapperElement: HTMLElement;
 
   constructor(protected container: HTMLElement, protected event: IEvents) {
     super(container);
@@ -20,8 +20,11 @@ export class Page extends Component<IPage> implements IPage {
     this.basketElement = ensureElement<HTMLButtonElement>('.header__basket', this.container);
     this.basketCounter = ensureElement('.header__basket-counter', this.container);
     this.galleryElement = ensureElement('.gallery', this.container);
+    this.wrapperElement = ensureElement('.page__wrapper', this.container);
 
-    this.basketElement.addEventListener('click', () => {});
+    this.basketElement.addEventListener('click', () => {
+
+    });
   };
 
   set catalog(items: HTMLElement[]) {
@@ -30,5 +33,9 @@ export class Page extends Component<IPage> implements IPage {
 
   set counter(value: number) {
     this.setText(this.basketCounter, value);
+  };
+
+  set locked(value: boolean) {
+    this.toggleClass(this.wrapperElement, 'page__wrapper_locked', value);
   };
 };
