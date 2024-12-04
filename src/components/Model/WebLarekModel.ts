@@ -5,6 +5,7 @@ interface IWebLarekModelData {
   _products: IProduct[];
   _basket: IBasket;
   _order: IOrder;
+  formErrors: TFormErrors;
 };
 
 interface IWebLarekModel {
@@ -97,26 +98,29 @@ export class WebLarekModel extends Model<IWebLarekModelData> implements IWebLare
 
   setContactsField(field: keyof IOrderContacts, value: string): void {
     this._order[field] = value;
-
   };
 
   setOrderField(field: keyof IOrderData, value: string): void {
     this._order[field] = value;
+
+    if (this.validateOrderField()) {
+
+    }
   };
 
   validateOrderField(): boolean {
     const errorMessage: typeof this.formErrors = {};
     if (!this._order.address) {
-      errorMessage.address = '';
+      errorMessage.address = 'Необходимо указать адрес';
     };
     if (!this._order.email) {
-      errorMessage.email = '';
+      errorMessage.email = 'Необходимо указать email';
     };
     if (!this._order.payment) {
-      errorMessage.payment = '';
+      errorMessage.payment = 'Необходимо указать способ оплаты';
     };
     if (!this._order.phone) {
-      errorMessage.phone = '';
+      errorMessage.phone = 'Необходимо указать телефон';
     };
     this.formErrors = errorMessage;
     return Object.keys(errorMessage).length === 0;

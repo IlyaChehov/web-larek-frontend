@@ -45,11 +45,11 @@ export class Card extends Component<ICard> {
     
     if (actions?.onClick) {
       if (this.buttonElement) {
-        this.buttonElement.addEventListener('click', () => actions.onClick)
+        this.buttonElement.addEventListener('click', () => actions.onClick())
       } else {
-        this.container.addEventListener('click', () => actions.onClick)
-      }
-    }
+        this.container.addEventListener('click', () => actions.onClick())
+      };
+    };
   };
 
   set category(value: TCategory) {

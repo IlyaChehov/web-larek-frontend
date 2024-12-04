@@ -39,6 +39,6 @@ export interface IActions {
 export interface IBasket {
   items: string[];
   total: number;
-}
+};
 
 export type TFormErrors = Partial<Record<keyof IOrder, string>>;
