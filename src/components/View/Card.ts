@@ -50,7 +50,6 @@ export class Card extends Component<ICard> {
         this.container.addEventListener('click', () => actions.onClick)
       }
     }
-
   };
 
   set category(value: TCategory) {
@@ -70,6 +69,10 @@ export class Card extends Component<ICard> {
   set price(value: number | null) {
     if (value === null) {
       this.setText(this.priceElement, 'Бесценно');
+      if (this.buttonElement) {
+        this.setDisabled(this.buttonElement, true);
+        this.setText(this.buttonElement, 'Бесценно');
+      };
     } else {
       this.setText(this.priceElement, `${value} синапсов`);
     };

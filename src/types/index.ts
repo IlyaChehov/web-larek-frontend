@@ -35,3 +35,10 @@ export interface IOrder extends IOrderContacts, IOrderData {
 export interface IActions {
   onClick: () => void;
 };
+
+export interface IBasket {
+  items: string[];
+  total: number;
+}
+
+export type TFormErrors = Partial<Record<keyof IOrder, string>>;
