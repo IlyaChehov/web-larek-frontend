@@ -18,6 +18,7 @@ interface IWebLarekModel {
   getTotalBasket(): number;
   getTotalOrder(): number;
   inBasket(id: string): boolean;
+  getSizeBasket(): number;
   setContactsField(field: keyof IOrderContacts, value: string): void;
   setOrderField(field: keyof IOrderData, value: string): void;
   validateOrderField(): boolean;
@@ -94,6 +95,10 @@ export class WebLarekModel extends Model<IWebLarekModelData> implements IWebLare
 
   inBasket(id: string): boolean {
     return this._basket.items.includes(id);
+  };
+
+  getSizeBasket(): number {
+    return this._basket.items.length;
   };
 
   setContactsField(field: keyof IOrderContacts, value: string): void {
