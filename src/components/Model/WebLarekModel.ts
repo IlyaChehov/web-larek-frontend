@@ -10,7 +10,9 @@ interface IWebLarekModelData {
 
 interface IWebLarekModel {
   products: IProduct[];
+  basket: string[];
   getProduct(id: string): IProduct;
+  getOrder():void;
   addToBasket(item: IProduct): void;
   deleteFromBasket(item: IProduct): void;
   setOrder(): void;
@@ -44,25 +46,36 @@ export class WebLarekModel extends Model<IWebLarekModelData> implements IWebLare
 
   set products(data: IProduct[]) {
     this._products = data;
+    this.events.emit('items:change');
   };
 
   get products() {
     return this._products;
   };
 
+  get basket() {
+    return this._basket.items;
+  }
+
   getProduct(id: string): IProduct {
     return this._products.find(item => item.id === id);
+  };
+
+  getOrder() {
+    return this._order
   };
 
   addToBasket(item: IProduct): void {
     const {id, price} = item;
     this._basket.items.push(id);
     this._basket.total += price;
+    this.events.emit('card:change');
   };
 
   deleteFromBasket(item: IProduct): void {
-    this._basket.items.filter(id => id !== item.id);
+    this._basket.items = this._basket.items.filter(id => id !== item.id);
     this._basket.total -= item.price;
+    this.events.emit('card:change');
   };
 
   setOrder(): void {
@@ -102,14 +115,14 @@ export class WebLarekModel extends Model<IWebLarekModelData> implements IWebLare
   };
 
   setContactsField(field: keyof IOrderContacts, value: string): void {
-    this._order[field] = value;
+    this._order[field] = value.trim();
   };
 
   setOrderField(field: keyof IOrderData, value: string): void {
-    this._order[field] = value;
+    this._order[field] = value.trim();
 
     if (this.validateOrderField()) {
-
+      this.events.emit('order:ready', this._order);
     }
   };
 
@@ -128,6 +141,7 @@ export class WebLarekModel extends Model<IWebLarekModelData> implements IWebLare
       errorMessage.phone = 'Необходимо указать телефон';
     };
     this.formErrors = errorMessage;
+    this.events.emit('formErrors:change', this.formErrors);
     return Object.keys(errorMessage).length === 0;
   };
 };

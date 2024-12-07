@@ -32,10 +32,10 @@ export class Card extends Component<ICard> {
   
   protected _title: string;
 
-  constructor(protected container: HTMLElement, protected cdn: string, protected actions?: IActions) {
+  constructor(protected container: HTMLElement, protected actions?: IActions, protected cdn?: string) {
     super(container);
 
-    this.categoryElement = ensureElement('.card__category', this.container);
+    this.categoryElement = this.container.querySelector('.card__category');
     this.titleElement = this.container.querySelector('.card__title');
     this.imageElement = this.container.querySelector('.card__image');
     this.priceElement = ensureElement('.card__price', this.container);
@@ -53,8 +53,10 @@ export class Card extends Component<ICard> {
   };
 
   set category(value: TCategory) {
-    this.setText(this.categoryElement, value);
-    this.categoryElement.classList.add(`card__category_${CategoryClassName[value]}`)
+    if (this.categoryElement) {
+      this.setText(this.categoryElement, value);
+      this.categoryElement.classList.add(`card__category_${CategoryClassName[value]}`)
+    };
   };
 
   set title(value: string) {
@@ -63,7 +65,7 @@ export class Card extends Component<ICard> {
   };
 
   set image(value: string) {
-    this.setImage(this.imageElement, this.cdn + value, this._title);
+    this.setImage(this.imageElement, this.cdn + value, `${this._title}`);
   };
 
   set price(value: number | null) {
@@ -85,5 +87,9 @@ export class Card extends Component<ICard> {
   set index(value: number) {
     if (!this.indexElement) return;
     this.setText(this.indexElement, value + 1);
+  };
+
+  set button(value: string) {
+    this.setText(this.buttonElement, value);
   };
 };

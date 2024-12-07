@@ -23,7 +23,7 @@ export class Page extends Component<IPage> implements IPage {
     this.wrapperElement = ensureElement('.page__wrapper', this.container);
 
     this.basketElement.addEventListener('click', () => {
-
+      this.event.emit('basket:open');
     });
   };
 

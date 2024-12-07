@@ -222,20 +222,23 @@ interface IBasket {
 + ```formErrors: TFormErrors``` - хранит в себе обьект с сообщениями об ошибке при валидации формы
 
 Имеет методы:   
-+ ```set products: IProduct[]``` - сеттер для сохранение массива карточек товара в поле класса **_products**
-+ ```get products: IProduct[]``` - геттер для получения массива карточек из поля класса **_products**
-+ ```getProduct(id: string): IProduct``` - позволяет найти нужный обьект карточки из поля класса **_products** по id
-+ ```addToBasket(item: IProduct): void``` - добавляет id товара и стоимость товара в поле класса **_basket**
-+ ```deleteFromBasket(item: IProduct): void``` - удаляет id товара и стоимость товара в поле класса **_basket**
-+ ```setOrder(): void``` - записывает в поля обекта **_order** id и стоимость всех товаров из корзины
-+ ```clearOrder(): void``` - очищает поля класса **_products** и **_basket** после успешного заказа
-+ ```getTotalBasket(): number``` - возвращает стоимость всех товаров в корзине
-+ ```getTotalOrder(): number``` - - возвращает стоимость всех товаров из поля **_order**
-+ ```inBasket(id: string): boolean``` - проверяет есть ли данный товар в корзине
-+ ```getSizeBasket(): number``` - возращает количество товаров в корзине
-+ ```setContactsField(field: keyof IOrderContacts, value: string): void``` - устанавливает данные, которые соотвествуют интрейфейсу **IOrderContacts** в поле класса **_order**
-+ ```setOrderField(field: keyof IOrderData, value: string): void``` - устанавливает данные, которые соотвествуют интрейфейсу **IOrderData** в поле класса **_order** 
-+ ```validateOrderField(): boolean``` - проверяет все ли поля с данными поля класса **_order** заполнены
++ ```set products: IProduct[]``` - сеттер для сохранение массива карточек товара в поле класса **_products**.
++ ```get products: IProduct[]``` - геттер для получения массива карточек из поля класса **_products**.
++ ```basket()``` - геттер для получения id товаров которые находятся в корзине.
++ ```getProduct(id: string): IProduct``` - позволяет найти нужный обьект карточки из поля класса **_products** по id.
++ ```getOrder()``` - метод для получения поля класса **_order**.
++ ```addToBasket(item: IProduct): void``` - добавляет id товара и стоимость товара в поле класса **_basket**.
++ ```deleteFromBasket(item: IProduct): void``` - удаляет id товара и стоимость товара в поле класса **_basket**.
++ ```setOrder(): void``` - записывает в поля обекта **_order** id и стоимость всех товаров из корзины.
++ ```clearOrder(): void``` - очищает поля класса **_products** и **_basket** после успешного заказа.
++ ```getTotalBasket(): number``` - возвращает стоимость всех товаров в корзине.
++ ```getTotalOrder(): number``` - - возвращает стоимость всех товаров из поля **_order**.
++ ```inBasket(id: string): boolean``` - проверяет есть ли данный товар в корзине.
++ ```getSizeBasket(): number``` - возращает количество товаров в корзине.
++ ```setContactsField(field: keyof IOrderContacts, value: string): void``` - устанавливает данные, которые соотвествуют интрейфейсу **IOrderContacts** в поле класса **_order**.
++ ```setOrderField(field: keyof IOrderData, value: string): void``` - устанавливает данные, которые соотвествуют интрейфейсу **IOrderData** в поле класса **_order**.
++ ```validateOrderField(): boolean``` - проверяет все ли поля с данными поля класса **_order** заполнены.
+
 ***
 
 ## Классы представления (View)
@@ -261,7 +264,7 @@ interface IBasket {
 **Card** - класс раширяет базовый класс **Component**, отвечает за заполнение элемента карточки контентом и ее отображение на странице.
 
 В конструктор принимает:   
-+ ```protected container: HTMLElement, protected cdn: string, protected actions?: IActions``` - шаблон элемента карточки, cdn для получения полной ссылки на картинку и обработчик клика.
++ ```protected container: HTMLElement, protected actions?: IActions , protected cdn: string``` - шаблон элемента карточки, cdn для получения полной ссылки на картинку и обработчик клика.
 
 Поля класса:   
 + ```categoryElement: HTMLElement``` - элемент карточки для отображения категории товара.
@@ -319,7 +322,7 @@ interface IBasket {
 **Success** - класс раширяет базовый класс **Component**, отвечает за отображение информации об успешном оформлении заказа и отображение списанной суммы.
 
 В конструктор принимает:   
-+ ```protected container: HTMLElement, protected actions?: IActions``` - шаблон элемента карточки и обработчик клика мыши.
++ ```protected container: HTMLElement, protected event: IEvents``` - шаблон элемента карточки и обработчик событий.
 
 Поля класса:   
 + ```desciptionElement: HTMLElement``` - элемент для отображения списанной суммы.
