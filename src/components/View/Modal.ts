@@ -25,12 +25,12 @@ export class Modal extends Component<IModal> implements IModal {
   };
 
   open = () => {
-    this.container.classList.add('modal_active');
+    this.toggleClass(this.container, 'modal_active', true)
     this.event.emit('modal:open');
   };
 
   close = () => {
-    this.container.classList.remove('modal_active');
+    this.toggleClass(this.container, 'modal_active', false)
     this.event.emit('modal:close');
   };
 

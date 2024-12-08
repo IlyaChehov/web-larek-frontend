@@ -1,5 +1,5 @@
-import { IOrder, IProduct, IResponseOrder, IResponseProducts } from "../../types";
-import { Api } from "../base/api";
+import { IOrder, IProduct, IResponseOrder, IResponseProducts } from "../types";
+import { Api } from "./base/api";
 
 export interface IWebLarekApi {
   getCatalog(): Promise<IResponseProducts>;

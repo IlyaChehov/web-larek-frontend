@@ -26,8 +26,6 @@ export class Order extends Form<IOrderData> implements IOrderData {
       this.payment = 'cash';
       event.emit('payment:change', this.cashButtonElement)
     });
-
-    this.submitButtonElemnt.addEventListener
   };
 
   set payment(value: TPaymentMethod) {

@@ -1,6 +1,6 @@
 import './scss/styles.scss';
 import { EventEmitter } from './components/base/events';
-import { WebLarekApi } from './components/Model/WebLarekApi';
+import { WebLarekApi } from './components/WebLarekApi';
 import { WebLarekModel } from './components/Model/WebLarekModel';
 import { Card } from './components/View/Card';
 import { API_URL, CDN_URL } from './utils/constants';
@@ -115,7 +115,6 @@ events.on('order:open', () => {
     })
   });
 });
-
 
 events.on('formErrors:change', (errors: Partial<IOrder>) => {
   const { email, phone, address, payment } = errors;
